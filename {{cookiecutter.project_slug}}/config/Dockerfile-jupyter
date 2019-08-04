@@ -1,0 +1,17 @@
+FROM jupyter/pyspark-notebook
+
+ARG USER_NAME
+
+USER root
+ADD config/jupyter_notebook_config.py .jupyter/jupyter_notebook_config.py
+
+COPY ./requirements.txt /home/$USER_NAME/requirements.txt
+RUN pip install -r /home/$USER_NAME/requirements.txt && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$USER_NAME
+
+USER $NB_USER
+WORKDIR /home/$NB_USER
+
+#RUN jupyter labextension install @jupyterlab/toc
+
