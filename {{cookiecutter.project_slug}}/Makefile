@@ -17,17 +17,19 @@ export JUPYTER_ENABLE_LAB={{cookiecutter.jupyter_enable_lab}}
 
 init-j-docker:
 	echo "Initializing Jupyter docker image for $(USER_NAME), in project $(PROJECT_NAME)"
-	docker build -t $(J_IMAGE_NAME) -f $(DOCKER_JUPYTER) -e PWD=$PWD --build-arg USER_NAME=$(USER_NAME) .
+	docker build -t $(J_IMAGE_NAME) -f $(DOCKER_JUPYTER) --build-arg USER_NAME=$(USER_NAME) .
 
 init-m-docker:
 	echo "Initializing MLflow docker image for $(USER_NAME), in project $(PROJECT_NAME)"
-	docker build -t $(M_IMAGE_NAME) -f $(DOCKER_MLFLOW) -e PWD=$PWD --build-arg USER_NAME=$(USER_NAME) .
+	docker build -t $(M_IMAGE_NAME) -f $(DOCKER_MLFLOW) --build-arg USER_NAME=$(USER_NAME) .
 
 create-j-container:
-	docker run -it -v $PWD:/home/$(USER_NAME) -p $(JUPYTER_HOST_PORT):$(JUPYTER_DOCKER_PORT) --name $(J_CONTAINER_NAME) $(J_IMAGE_NAME)
+	docker run -i -e JUPYTER_ENABLE_LAB=$(JUPYTER_ENABLE_LAB) \
+	-e NB_USER=$(USER) --user root -w /home/$NB_USER -v $(PWD):/home/$(USER_NAME) \
+	-p $(JUPYTER_HOST_PORT):$(JUPYTER_DOCKER_PORT) --name $(J_CONTAINER_NAME) $(J_IMAGE_NAME)
 
 create-m-container:
-	docker run -it -v $PWD:/home/$(USER_NAME) -p $(MLFLOW_HOST_PORT):$(MLFLOW_DOCKER_PORT) --name $(M_CONTAINER_NAME) $(M_IMAGE_NAME)
+	docker run -it -v $(PWD):/home/$(USER_NAME) -p $(MLFLOW_HOST_PORT):$(MLFLOW_DOCKER_PORT) --name $(M_CONTAINER_NAME) $(M_IMAGE_NAME)
 
 start-j-container:
 	docker start $(J_CONTAINER_NAME)
