@@ -16,8 +16,8 @@ RUN pip install jupyter_contrib_nbextensions && \
 
 # template when initiating notebook
 RUN mkdir /opt/conda/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/setup
-COPY /home/$NB_USER/config/nbextension_setup/main.js /opt/conda/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/setup/
-COPY /home/$NB_USER/config/nbextension_setup/config.yaml /opt/conda/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/setup/
+COPY $(PWD)/config/nbextension_setup/main.js /opt/conda/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/setup/
+COPY $(PWD)/config/nbextension_setup/config.yaml /opt/conda/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/setup/
 RUN jupyter contrib nbextension install
 
 # code-folding in notebook
