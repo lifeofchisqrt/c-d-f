@@ -29,8 +29,14 @@ create-j-container:
 	-p $(JUPYTER_HOST_PORT):$(JUPYTER_DOCKER_PORT) --rm --name $(J_CONTAINER_NAME) $(J_IMAGE_NAME)
 
 create-m-container:
-	docker run -it -d -v $(PWD):/home/$(USER_NAME) -p $(MLFLOW_HOST_PORT):$(MLFLOW_DOCKER_PORT) --name $(M_CONTAINER_NAME) $(M_IMAGE_NAME)
+	docker run -it -d -v $(PWD):/home/$(USER_NAME) \
+	-p $(MLFLOW_HOST_PORT):$(MLFLOW_DOCKER_PORT) --name $(M_CONTAINER_NAME) $(M_IMAGE_NAME)
 
 init-all: init-j-docker init-m-docker create-j-docker create-m-docker
+
+open-browser:
+	python -m webbrowser "https://127.0.0.1:$(JUPYTER_HOST_PORT)" && \
+	python -m webbrowser "https://127.0.0.1:$(MLFLOW_HOST_PORT)"
+
 
 
