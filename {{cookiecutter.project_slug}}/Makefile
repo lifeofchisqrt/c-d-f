@@ -24,23 +24,13 @@ init-m-docker:
 	docker build -t $(M_IMAGE_NAME) -f $(DOCKER_MLFLOW) --build-arg USER_NAME=$(USER_NAME) .
 
 create-j-container:
-	docker run -i -e JUPYTER_ENABLE_LAB=$(JUPYTER_ENABLE_LAB) \
-	-e NB_USER=$(USER) --user root -w /home/$NB_USER -v $(PWD):/home/$(USER_NAME) \
-	-p $(JUPYTER_HOST_PORT):$(JUPYTER_DOCKER_PORT) --name $(J_CONTAINER_NAME) $(J_IMAGE_NAME)
+	docker run -i -d -e JUPYTER_ENABLE_LAB=$(JUPYTER_ENABLE_LAB) \
+	-e NB_USER=$(USER) --user root -w /home/$(NB_USER) -v $(PWD):/home/$(USER) \
+	-p $(JUPYTER_HOST_PORT):$(JUPYTER_DOCKER_PORT) --rm --name $(J_CONTAINER_NAME) $(J_IMAGE_NAME)
 
 create-m-container:
-	docker run -it -v $(PWD):/home/$(USER_NAME) -p $(MLFLOW_HOST_PORT):$(MLFLOW_DOCKER_PORT) --name $(M_CONTAINER_NAME) $(M_IMAGE_NAME)
+	docker run -it -d -v $(PWD):/home/$(USER_NAME) -p $(MLFLOW_HOST_PORT):$(MLFLOW_DOCKER_PORT) --name $(M_CONTAINER_NAME) $(M_IMAGE_NAME)
 
-start-j-container:
-	docker start $(J_CONTAINER_NAME)
-
-start-m-container:
-	docker start $(M_CONTAINER_NAME)
-
-jupyter-notebook:
-	jupyter-notebook --port=8888
-
-jupyter-lab:
-	jupyter lab --port=8888
+init-all: init-j-docker init-m-docker create-j-docker create-m-docker
 
 
