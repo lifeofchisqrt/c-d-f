@@ -13,11 +13,12 @@ export M_CONTAINER_NAME=$(PROJECT_NAME)-m-container
 export M_IMAGE_NAME=$(PROJECT_NAME)-m-image
 export JUPYTER_ENABLE_LAB={{cookiecutter.jupyter_enable_lab}}
 
-# TO-DO add github clone repo, set remote based on user
+
 
 init-j-docker:
 	echo "Initializing Jupyter docker image for $(USER_NAME), in project $(PROJECT_NAME)"
-	docker build -t $(J_IMAGE_NAME) -f $(DOCKER_JUPYTER) --build-arg USER_NAME=$(USER_NAME) .
+	docker build -t $(J_IMAGE_NAME) -f $(DOCKER_JUPYTER) \
+	--build-arg PROJECT_NAME=$(PROJECT_NAME) --build-arg USER_NAME=$(USER_NAME) .
 
 init-m-docker:
 	echo "Initializing MLflow docker image for $(USER_NAME), in project $(PROJECT_NAME)"
@@ -33,6 +34,13 @@ create-m-container:
 	-p $(MLFLOW_HOST_PORT):$(MLFLOW_DOCKER_PORT) --name $(M_CONTAINER_NAME) $(M_IMAGE_NAME)
 
 init-all: init-j-docker init-m-docker create-j-docker create-m-docker
+
+enter-j-container: create-j-container
+	docker exec --user $(USER_NAME) -it $(J_CONTAINER_NAME) /bin/bash -m
+
+enter-m-container: create-m-container
+	docker exec --user $(USER_NAME) -it $(M_CONTAINER_NAME) /bin/bash -m
+
 
 open-browser:
 	python -m webbrowser "https://127.0.0.1:$(JUPYTER_HOST_PORT)" && \

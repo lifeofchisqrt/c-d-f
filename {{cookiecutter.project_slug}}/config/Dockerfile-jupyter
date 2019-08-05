@@ -1,7 +1,7 @@
 FROM jupyter/pyspark-notebook
 
 ARG USER_NAME
-
+ARG PROJECT_NAME
 USER root
 ADD config/jupyter_notebook_config.py .jupyter/jupyter_notebook_config.py
 
@@ -10,8 +10,43 @@ RUN pip install -r /home/$USER_NAME/requirements.txt && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$USER_NAME
 
-USER $NB_USER
-WORKDIR /home/$NB_USER
+# jupyter nbextensions
+RUN pip install --user jupyter_contrib_nbextensions && \
+    jupyter contrib nbextension install 
 
-#RUN jupyter labextension install @jupyterlab/toc
+# template when initiating notebook
+RUN mkdir /opt/conda/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/setup
+COPY config/nbextension_setup/main.js /opt/conda/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/setup/
+COPY config/nbextension_setup/config.yaml /opt/conda/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/setup/
+RUN jupyter contrib nbextension install
+
+# code-folding in notebook
+RUN jupyter nbextension enable codefolding/main
+
+# Table-Of-Contents extension
+RUN jupyter labextension install @jupyterlab/toc && \
+    jupyter nbextension enable toc2/main
+
+# collapsible-headings
+RUN jupyter nbextension enable collapsible_headings/main
+
+# snippets for lab and notebook
+RUN pip install jupyterlab-snippets && \
+    jupyter nbextension enable snippets_menu/main && \
+    jupyter nbextension enable snippets/main
+
+
+# JupyterLab-Git extension
+RUN jupyter labextension install @jupyterlab/git && \
+    pip install --upgrade jupyterlab-git && \
+    jupyter serverextension enable --py jupyterlab_git
+
+# ipywidgets
+RUN pip install ipywidgets
+
+
+USER $NB_USER
+WORKDIR /home/$NB_USER/$PROJECT_NAME
+
+
 
