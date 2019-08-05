@@ -11,7 +11,7 @@ RUN pip install -r /home/$USER_NAME/requirements.txt && \
     fix-permissions /home/$USER_NAME
 
 # jupyter nbextensions
-RUN pip install --user jupyter_contrib_nbextensions && \
+RUN pip install jupyter_contrib_nbextensions && \
     jupyter contrib nbextension install 
 
 # template when initiating notebook
