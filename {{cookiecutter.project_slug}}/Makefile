@@ -32,6 +32,7 @@ create-j-container:
 	start.sh jupyter lab --LabApp.token=''
 	{%- else %}
 	start.sh jupyter notebook --NotebookApp.token=''
+	{% endif %}
 
 create-m-container:
 	docker run -it -d -v $(PWD):/home/$(USER_NAME) \
