@@ -1,31 +1,30 @@
 define(['base/js/namespace', 'base/js/events'], function (Jupyter, events) {
     // Template cells including markdown and imports
-    var setUp = function () {
-      Jupyter.notebook.insert_cell_at_index('markdown', 0)
-        .set_text(`# Introduction
-  State notebook purpose here`)
-      Jupyter.notebook.insert_cell_at_index('markdown', 1).set_text(`### Imports
-  Import libraries and write settings here.`)
-      // Define imports and settings
-      Jupyter.notebook.insert_cell_at_index('code', 2)
-        .set_text(`# Data manipulation
-  import pandas as pd
-  import numpy as np
-  # Options for pandas
-  pd.options.display.max_columns = 50
-  pd.options.display.max_rows = 30
+  var setUp = function () {
+    Jupyter.notebook.insert_cell_at_index('markdown', 0)
+      .set_text(`# Introduction
+State notebook purpose here`)
+    Jupyter.notebook.insert_cell_at_index('markdown', 1).set_text(`### Imports
+Import libraries and write settings here.`)
+    // Define imports and settings
+    Jupyter.notebook.insert_cell_at_index('code', 2)
+      .set_text(`# Data manipulation
+import pandas as pd
+import numpy as np
+# Options for pandas
+pd.options.display.max_columns = 50
+pd.options.display.max_rows = 30
     
-  # autoreload extension
-  if 'autoreload' not in ipython.extension_manager.loaded:
-      %load_ext autoreload
-  %autoreload 2
-  # Visualizations
-  from matplotlib import pyplot as plt
-  import seaborn as sns
-  sns.set_style('white')
+# autoreload extension
+if 'autoreload' not in ipython.extension_manager.loaded:
+    %load_ext autoreload
+%autoreload 2
+# Visualizations
+from matplotlib import pyplot as plt
+import seaborn as sns
+sns.set_style('white')
   
-  np.random.seed(42)
-  
+np.random.seed(42)  
   `)
       Jupyter.notebook.insert_cell_at_index('markdown', 3)
         .set_text(`# Analysis/Modeling
