@@ -33,7 +33,7 @@ create-m-container:
 	docker run -it -d -v $(PWD):/home/$(USER_NAME) \
 	-p $(MLFLOW_HOST_PORT):$(MLFLOW_DOCKER_PORT) --name $(M_CONTAINER_NAME) $(M_IMAGE_NAME)
 
-init-all: init-j-docker init-m-docker create-j-docker create-m-docker
+init-all: init-j-docker init-m-docker create-j-container create-m-container
 
 enter-j-container: create-j-container
 	docker exec --user $(USER_NAME) -it $(J_CONTAINER_NAME) /bin/bash -m
