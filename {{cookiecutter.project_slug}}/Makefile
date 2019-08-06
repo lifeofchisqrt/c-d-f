@@ -28,7 +28,7 @@ create-j-container:
 	docker run -i -d -e JUPYTER_ENABLE_LAB=$(JUPYTER_ENABLE_LAB) \
 	-e NB_USER=$(USER) --user root -w /home/$(NB_USER) -v $(PWD):/home/$(USER) \
 	-p $(JUPYTER_HOST_PORT):$(JUPYTER_DOCKER_PORT) --rm --name $(J_CONTAINER_NAME) $(J_IMAGE_NAME) \
-	{%- if cookiecutter.jupyter_enable_lab == 'yes %}
+	{%- if cookiecutter.jupyter_enable_lab == 'yes' %}
 	start.sh jupyter lab --LabApp.token=''
 	{%- else %}
 	start.sh jupyter notebook --NotebookApp.token=''
