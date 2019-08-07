@@ -1,4 +1,4 @@
-FROM jupyter/pyspark-notebook
+FROM jupyter/pyspark-notebook:latest
 
 ARG USER_NAME
 ARG PROJECT_NAME
@@ -19,7 +19,9 @@ RUN pip install jupyter_contrib_nbextensions && \
 RUN mkdir /opt/conda/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/setup
 COPY ./config/nbextension_setup/main.js /opt/conda/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/setup/
 COPY ./config/nbextension_setup/setup.yaml /opt/conda/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/setup/
-RUN jupyter contrib nbextension install
+COPY ./config/nbextension_setup/README.md /opt/conda/lib/python3.7/site-packages/jupyter_contrib_nbextensions/nbextensions/setup/
+RUN jupyter contrib nbextension install && \
+    jupyter nbextension enable setup/main
 
 # code-folding in notebook
 RUN jupyter nbextension enable codefolding/main
@@ -35,7 +37,7 @@ RUN jupyter labextension install @aquirdturtle/collapsible_headings --no-build
 # snippets for lab and notebook
 RUN pip install jupyterlab-snippets && \
     jupyter nbextension enable snippets_menu/main && \
-    jupyter nbextension enable snippets/main &&
+    jupyter nbextension enable snippets/main
 
 
 # JupyterLab-Git extension
@@ -45,10 +47,11 @@ RUN jupyter labextension install @jupyterlab/git && \
 
 # ipywidgets
 RUN pip install ipywidgets
-RUN jupyter lab build
+RUN pip install --upgrade jupyterlab
+RUN jupyter lab build && \
+    jupyter labextension enable jupyterlab/toc && \
+    jupyter labextension enable aquirdturtle/collapsible_headings
+
 
 USER $NB_USER
 WORKDIR /home/$NB_USER/$PROJECT_NAME
-
-
-
