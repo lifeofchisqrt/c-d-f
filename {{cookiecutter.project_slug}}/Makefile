@@ -1,5 +1,5 @@
-export PWD=$(pwd)
-export USER_NAME=$(whoami)
+export PWD=`pwd`
+export USER_NAME=`whoami`
 export PROJECT_NAME={{ cookiecutter.project_slug }}
 export JUPYTER_HOST_PORT={{ cookiecutter.jupyter_host_port }}
 export JUPYTER_DOCKER_PORT=8888
@@ -26,7 +26,7 @@ init-m-docker:
 
 create-j-container:
 	docker run -i -d -e JUPYTER_ENABLE_LAB=$(JUPYTER_ENABLE_LAB) \
-	-e NB_USER=$(USER) --user root -w /home/$(NB_USER) -v $(PWD):/home/$(USER) \
+	-e NB_USER=$(USER_NAME) --user root -w /home/$(NB_USER) -v $(PWD):/home/$(USER_NAME) \
 	-p $(JUPYTER_HOST_PORT):$(JUPYTER_DOCKER_PORT) --rm --name $(J_CONTAINER_NAME) $(J_IMAGE_NAME) \
 	{%- if cookiecutter.jupyter_enable_lab == 'yes' %}
 	start.sh jupyter lab --LabApp.token=''
