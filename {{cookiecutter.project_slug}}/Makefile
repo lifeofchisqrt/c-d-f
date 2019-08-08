@@ -1,5 +1,5 @@
-export PWD=`pwd`
-export USER_NAME=`whoami`
+export PWD=$(pwd)
+export USER_NAME=$(whoami)
 export PROJECT_NAME={{ cookiecutter.project_slug }}
 export JUPYTER_HOST_PORT={{ cookiecutter.jupyter_host_port }}
 export JUPYTER_DOCKER_PORT=8888
@@ -35,7 +35,7 @@ create-j-container:
 	{% endif %}
 
 create-m-container:
-	docker run -it -d -v $(PWD):/home/$(USER_NAME) \
+	docker run -i -d -v $(PWD):/home/$(USER_NAME) \
 	-p $(MLFLOW_HOST_PORT):$(MLFLOW_DOCKER_PORT) --name $(M_CONTAINER_NAME) $(M_IMAGE_NAME)
 
 init-all: init-j-docker init-m-docker create-j-container create-m-container

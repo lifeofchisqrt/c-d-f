@@ -4,6 +4,9 @@ ARG USER_NAME
 ARG PROJECT_NAME
 USER root
 
+RUN pip install --upgrade jupyterlab
+RUN pip install --upgrade jupyter
+
 COPY config/jupyter_notebook_config.py /home/jovyan/.jupyter/jupyter_notebook_config.py
 
 COPY ./requirements.txt /home/$USER_NAME/requirements.txt
