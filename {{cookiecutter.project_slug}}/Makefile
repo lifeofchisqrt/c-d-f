@@ -48,8 +48,8 @@ enter-m-container:
 
 
 open-browser:
-	python -m webbrowser "https://127.0.0.1:$(JUPYTER_HOST_PORT)" && \
-	python -m webbrowser "https://127.0.0.1:$(MLFLOW_HOST_PORT)"
+	python -m webbrowser "127.0.0.1:$(JUPYTER_HOST_PORT)" && \
+	python -m webbrowser "127.0.0.1:$(MLFLOW_HOST_PORT)"
 
 
 
