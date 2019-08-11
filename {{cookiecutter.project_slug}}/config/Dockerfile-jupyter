@@ -37,11 +37,6 @@ RUN jupyter labextension install @jupyterlab/toc --no-build && \
 RUN jupyter nbextension enable collapsible_headings/main
 RUN jupyter labextension install @aquirdturtle/collapsible_headings --no-build
 
-# snippets for lab and notebook
-RUN pip install jupyterlab-snippets && \
-    jupyter nbextension enable snippets_menu/main && \
-    jupyter nbextension enable snippets/main
-
 
 # JupyterLab-Git extension
 RUN jupyter labextension install @jupyterlab/git && \
@@ -50,7 +45,7 @@ RUN jupyter labextension install @jupyterlab/git && \
 
 # ipywidgets
 RUN pip install ipywidgets
-RUN pip install --upgrade jupyterlab
+
 RUN jupyter lab build && \
     jupyter labextension enable jupyterlab/toc && \
     jupyter labextension enable aquirdturtle/collapsible_headings
