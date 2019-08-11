@@ -26,7 +26,7 @@ init-m-docker:
 
 create-j-container:
 	docker run -i -d -e JUPYTER_ENABLE_LAB=$(JUPYTER_ENABLE_LAB) \
-	-e NB_USER=$(USER_NAME) --user root -w /home/$(NB_USER) -v $(PWD):/home/$(USER_NAME) \
+	-e NB_USER=$(USER_NAME) --user root -w /home/$(NB_USER) -v $(PWD):/home/$(USER_NAME)/$(PROJECT_NAME) \
 	-p $(JUPYTER_HOST_PORT):$(JUPYTER_DOCKER_PORT) --rm --name $(J_CONTAINER_NAME) $(J_IMAGE_NAME) \
 	{%- if cookiecutter.jupyter_enable_lab == 'yes' %}
 	start.sh jupyter lab --LabApp.token=''
@@ -35,7 +35,7 @@ create-j-container:
 	{% endif %}
 
 create-m-container:
-	docker run -i -d -v $(PWD):/home/$(USER_NAME) \
+	docker run -i -d -v $(PWD):/home/$(USER_NAME)/$(PROJECT_NAME) \
 	-p $(MLFLOW_HOST_PORT):$(MLFLOW_DOCKER_PORT) --name $(M_CONTAINER_NAME) $(M_IMAGE_NAME)
 
 init-all: init-j-docker init-m-docker create-j-container create-m-container
