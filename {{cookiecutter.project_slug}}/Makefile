@@ -22,7 +22,8 @@ init-j-docker:
 
 init-m-docker:
 	echo "Initializing MLflow docker image for $(USER_NAME), in project $(PROJECT_NAME)"
-	docker build -t $(M_IMAGE_NAME) -f $(DOCKER_MLFLOW) --build-arg USER_NAME=$(USER_NAME) .
+	docker build -t $(M_IMAGE_NAME) -f $(DOCKER_MLFLOW) --build-arg USER_NAME=$(USER_NAME) \
+	--build-arg PROJECT_NAME=$(PROJECT_NAME) .
 
 create-j-container:
 	docker run -i -d -e JUPYTER_ENABLE_LAB=$(JUPYTER_ENABLE_LAB) \
@@ -51,5 +52,11 @@ open-browser:
 	python -m webbrowser "127.0.0.1:$(JUPYTER_HOST_PORT)" && \
 	python -m webbrowser "127.0.0.1:$(MLFLOW_HOST_PORT)"
 
+clean-container: ## remove Docker container
+	docker rm $(J_CONTAINER_NAME) && \
+	docker rm $(M_CONTAINER_NAME)
 
+clean-image: ## remove Docker image
+	docker image rm $(J_IMAGE_NAME) && \
+	docker image rm $(M_IMAGE_NAME)
 

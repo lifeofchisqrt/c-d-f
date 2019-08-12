@@ -1,18 +1,19 @@
 FROM python:3.7.0
 
 ARG USER_NAME
+ARG PROJECT_NAME
 RUN useradd -m -s /bin/bash $USER_NAME
 
 RUN pip install --upgrade pip
-WORKDIR /home/$USER_NAME/
-RUN pip install --no-warn-script-location mlflow==1.1 
+WORKDIR /home/$USER_NAME/$PROJECT_NAME
+RUN pip install --no-warn-script-location mlflow==1.1
 
 USER $USER_NAME
-WORKDIR /home/$USER_NAME
+WORKDIR /home/$USER_NAME/$PROJECT_NAME
 EXPOSE 5000
 
 CMD    mlflow server \
-       --backend-store-uri=mlruns \
+       --backend-store-uri='file:///home/$USER_NAME/$PROJECT_NAME/mlruns' \
        --host=0.0.0.0 \
        --port=5000
 
