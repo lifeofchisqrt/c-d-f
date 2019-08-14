@@ -13,6 +13,7 @@ COPY ./requirements.txt /home/$USER_NAME/requirements.txt
 RUN pip install -r /home/$USER_NAME/requirements.txt && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$USER_NAME
+RUN rm /home/$USER_NAME/requirements.txt
 
 # jupyter nbextensions
 RUN pip install jupyter_contrib_nbextensions && \

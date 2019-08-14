@@ -2,8 +2,6 @@
     "project_name":"project_name",
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
     "description": "Please provide a short description",
-    "github_user":"user",
-    "github_repo_name":"repo_name",
     "jupyter_host_port":"8890",
     "mlflow_host_port":"8900",
     "jupyter_enable_lab":"yes/no"
