@@ -54,4 +54,8 @@ RUN jupyter lab build && \
 
 
 USER $NB_USER
+RUN jupyter nbextension enable codefolding/main && \
+    jupyter nbextenson enable toc2/main && \
+    jupyter nbextension enable collapsible_headings/main && \
+    jupyter nbextension enable setup/main 
 WORKDIR /home/$NB_USER/$PROJECT_NAME
