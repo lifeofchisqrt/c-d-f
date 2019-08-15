@@ -5,7 +5,7 @@ ARG PROJECT_NAME
 ARG UID
 ARG GUID
 
-RUN useradd -m -u $UID -g $GID -s /bin/bash $USER_NAME
+RUN useradd -m -u $UID -g $GUID -s /bin/bash $USER_NAME
 
 RUN pip install --upgrade pip
 RUN pip install --no-warn-script-location mlflow==1.1
