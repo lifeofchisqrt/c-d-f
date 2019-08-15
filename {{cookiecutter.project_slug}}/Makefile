@@ -16,15 +16,13 @@ export JUPYTER_ENABLE_LAB={{cookiecutter.jupyter_enable_lab}}
 
 
 build-j-image:
-	echo "Initializing Jupyter docker image for $(USER_NAME), in project $(PROJECT_NAME)"
 	docker build -t $(J_IMAGE_NAME) -f $(DOCKER_JUPYTER) \
 	--build-arg PROJECT_NAME=$(PROJECT_NAME) --build-arg USER_NAME=$(USER_NAME) .
 
 build-m-image:
-	echo "Initializing MLflow docker image for $(USER_NAME), in project $(PROJECT_NAME)"
-	docker build -t $(M_IMAGE_NAME) -f $(DOCKER_MLFLOW) --build-arg USER_NAME=$(USER_NAME) \
-	--build-arg PROJECT_NAME=$(PROJECT_NAME) --build-arg UID=$(shell id -u) \ 
-	--build-arg GUID=$(shell id -g) .
+	docker build -t $(M_IMAGE_NAME) -f $(DOCKER_MLFLOW) \
+	--build-arg USER_NAME=$(USER_NAME) --build-arg PROJECT_NAME=$(PROJECT_NAME) \
+	--build-arg UID=$(shell id -u) --build-arg GUID=$(shell id -g) .
 
 create-j-container:
 	docker run -i -d -e JUPYTER_ENABLE_LAB=$(JUPYTER_ENABLE_LAB) \
