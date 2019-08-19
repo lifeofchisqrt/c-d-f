@@ -38,7 +38,7 @@ create-m-container:
 	docker run -i -d -v $(PWD):/home/$(USER_NAME)/$(PROJECT_NAME) \
 	-p $(MLFLOW_HOST_PORT):$(MLFLOW_DOCKER_PORT) --name $(M_CONTAINER_NAME) $(M_IMAGE_NAME)
 
-init-all: build-j-image build-m-image create-j-container create-m-container
+init-all: build-j-image build-m-image create-j-container create-m-container git-init
 
 enter-j-container: 
 	docker exec --user $(USER_NAME) -it $(J_CONTAINER_NAME) /bin/bash -m
@@ -46,6 +46,8 @@ enter-j-container:
 enter-m-container: 
 	docker exec --user $(USER_NAME) -it $(M_CONTAINER_NAME) /bin/bash -m
 
+git-init:
+	git init
 
 open-browser:
 	python -m webbrowser "127.0.0.1:$(JUPYTER_HOST_PORT)" && \
