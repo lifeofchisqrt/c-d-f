@@ -22,9 +22,9 @@
 
 ### How to use it?
 __Requirements__
-   - Python 3.7 or later
-   - [Cookiecutter 1.6](https://cookiecutter.readthedocs.io/en/latest/installation.html)
-   - [Docker 18](https://docs.docker.com/install/#support)
+  - Python 3.7 or later
+  - [Cookiecutter 1.6](https://cookiecutter.readthedocs.io/en/latest/installation.html)
+  - [Docker 18](https://docs.docker.com/install/#support)
 
 __To start new project, run:__
 
