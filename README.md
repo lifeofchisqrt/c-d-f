@@ -7,9 +7,9 @@
   Inspired by [cookiecutter-docker-science](https://github.com/docker-science/cookiecutter-docker-science) and [cookiecutter-data-science](https://github.com/drivendata/cookiecutter-data-science) projects.
 
 #### Features:
-    1. Reproducibility through Docker
-    2. Standardized directory structure
-    3. Extensibility and customization
+  1. Reproducibility through Docker
+  2. Standardized directory structure
+  3. Extensibility and customization
 
 ### Why?
   Reproducibility of scientific results is what makes Data Science, well, science. Docker provides that. Being based on official Jupyter image means new projects are created from latest stable release and older ones should be compatible with common setups.  
