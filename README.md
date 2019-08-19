@@ -16,7 +16,7 @@
     
   Directory template provides first line of defense against unstructured and chaotic creation of random notebooks or scripts. It allows more focused approach to solving problem at hand.  
   
-  MLflow server and UI comes from need for easier comparison of tested models. Logging parameters, saving and versioning models is easier than ever.
+  MLflow server and UI makes it easier to compare tested models. Logging parameters, saving and versioning models is easier than ever.
   
   Default image provides extensibility by installing nbextension package for notebooks and few useful extensions for Jupyter Lab as well. Default settings should be familiar to most but advanced users can extend template or edit configuration with ease.
 
