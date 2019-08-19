@@ -1,5 +1,5 @@
 # c-d-f
-#### __C__ookiecutter __D__ataScience __F__low
+#### Cookiecutter DataScience Flow
   
 ### What is it?  
   Cookiecutter Data Science Flow is template for personal analytical projects that uses Docker to provide Jupyter notebook with most important libraries and extensions, adding MLflow server for experimentation with ML models.  
