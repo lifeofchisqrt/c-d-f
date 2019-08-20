@@ -2,7 +2,7 @@
 #### Cookiecutter DataScience Flow
   
 ### What is it?  
-  Cookiecutter Data Science Flow is template for personal analytical projects that uses Docker to provide Jupyter notebook with most important libraries and extensions, adding MLflow server for experimentation with ML models.  
+  Cookiecutter Data Science Flow is template for personal analytical projects that uses Docker to provide Jupyter notebook with most important libraries and extensions, template of directory structure, with addition of MLflow server for experimentation with ML models.  
    
   Inspired by [cookiecutter-docker-science](https://github.com/docker-science/cookiecutter-docker-science) and [cookiecutter-data-science](https://github.com/drivendata/cookiecutter-data-science) projects.
 
@@ -53,8 +53,41 @@ Initial directory structure will look like:
 ├── references                     <- Data dictionaries
 └── scripts                        <- Code for automatic preprocessing or data                                           collection
 ```
+#### Make commands
+c-d-f provides few make commands for setup of Docker environments. These can be run by specifiying 'make \[command]'.  
 
-#### Customization
+__init-all__  
+After creation of directory structure this command will initialize building and creating Docker images and containers. After succesful creation of containers Jupyter Notebook and MLflow services will be started on localhost 127.0.0.1 and their respective ports entered during cookiecutter prompt (default 8890 and 8900).
+
+__build-j-image__  
+Builds image of Jupyter notebook from config/Dockerfile-jupyter. Image build will be named <project_name>-j-image.
+
+__build-m-image__  
+Builds image of MLflow from config/Dockerfile-mlflow. Image build will be named <project_name>-m-image.
+
+__create-j-container__  
+Runs docker container based on j-image, giving it name <project_name>-j-container. Also starts Jupyter notebook or Lab service on host 127.0.0.1 with port specified during cookiecutter project creation - defaults to 8890.
+
+__create-m-container__  
+Runs docker container based on m-image, giving it name <project_name>-m-container. Also starts MLflow service on host 127.0.0.1 with port specified during cookiecutter project creation - defaults to 8900.
+
+__open-browser__  
+Opens default browser with 2 tabs redirecting to Jupyter notebook and MLflow UI's on localhost 127.0.0.1 and their respective ports.
+
+__enter-m-container__  
+Opens SSH connection to docker container with MLflow service. Runs default container's shell.
+
+__enter-j-container__  
+Opens SSH connection to docker container with Jupyter service. Runs default container's shell.
+
+__clean-image__  
+Removes both docker images.
+
+__clean-container__  
+Removes both docker containers.
+
+__git-init__  
+Initializes git repository - equivalent to running `git init` (work in progress feature).
 
 #### Planned Features
  - Git integration
