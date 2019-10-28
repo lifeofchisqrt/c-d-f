@@ -93,4 +93,5 @@ Initializes git repository - equivalent to running `git init` (work in progress 
  - Git integration
  - simple CI/CD integration
  - notebook template at startup
+ - remote data source synchronization
 

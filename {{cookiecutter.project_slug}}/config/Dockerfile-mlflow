@@ -16,7 +16,7 @@ WORKDIR /home/$USER_NAME/$PROJECT_NAME
 EXPOSE 5000
 
 #initiate empty experiment 0
-RUN mlflow experiments create -n 0
+#RUN mlflow experiments create -n 0
 CMD    mlflow server \
        --backend-store-uri=file://`pwd`/mlruns \
        --host=0.0.0.0 \

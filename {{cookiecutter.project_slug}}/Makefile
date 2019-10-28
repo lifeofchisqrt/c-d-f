@@ -17,7 +17,8 @@ export JUPYTER_ENABLE_LAB={{cookiecutter.jupyter_enable_lab}}
 
 build-j-image:
 	docker build -t $(J_IMAGE_NAME) -f $(DOCKER_JUPYTER) \
-	--build-arg PROJECT_NAME=$(PROJECT_NAME) --build-arg USER_NAME=$(USER_NAME) .
+	--build-arg PROJECT_NAME=$(PROJECT_NAME) --build-arg USER_NAME=$(USER_NAME)
+	--build-arg UID=$(shell id -u) --build-arg GUID=$(shell id -g) .
 
 build-m-image:
 	docker build -t $(M_IMAGE_NAME) -f $(DOCKER_MLFLOW) \
@@ -54,6 +55,8 @@ open-browser:
 	python -m webbrowser "127.0.0.1:$(MLFLOW_HOST_PORT)"
 
 clean-container: ## remove Docker container
+	docker container stop $(J_CONTAINER_NAME) && \
+	docker container stop $(M_CONTAINER_NAME) && \
 	docker rm $(J_CONTAINER_NAME) && \
 	docker rm $(M_CONTAINER_NAME)
 
