@@ -17,7 +17,7 @@ export JUPYTER_ENABLE_LAB={{cookiecutter.jupyter_enable_lab}}
 
 build-j-image:
 	docker build -t $(J_IMAGE_NAME) -f $(DOCKER_JUPYTER) \
-	--build-arg PROJECT_NAME=$(PROJECT_NAME) --build-arg USER_NAME=$(USER_NAME)
+	--build-arg PROJECT_NAME=$(PROJECT_NAME) --build-arg USER_NAME=$(USER_NAME) \
 	--build-arg UID=$(shell id -u) --build-arg GUID=$(shell id -g) .
 
 build-m-image:
